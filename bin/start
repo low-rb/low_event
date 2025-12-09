@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/low_event.rb'
+
+Low::Loop.start
