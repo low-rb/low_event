@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-module LowEvent
-  VERSION = '0.0.1'
+module Low
+  module Event
+    VERSION = '0.0.1'
+  end
 end
