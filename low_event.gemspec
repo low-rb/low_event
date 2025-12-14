@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
 
   spec.add_dependency 'low_type', '~> 1.0'
+  spec.add_dependency 'observers'
 end

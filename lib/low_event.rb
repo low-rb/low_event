@@ -3,6 +3,11 @@
 require 'low_type'
 
 class LowEvent
-  def intialize
+  include LowType
+
+  attr_reader :action
+
+  def intialize(action: Symbol | String)
+    @action = action
   end
 end
