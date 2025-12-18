@@ -4,7 +4,7 @@ module Low
   class LowEvent
     attr_reader :action
 
-    def intialize(action:)
+    def initialize(action: :handle_event)
       @action = action
     end
   end
