@@ -3,7 +3,7 @@
 require_relative 'low_event'
 
 module Low
-  class RequestEvent < LowEvent
+  class RequestEvent < Event
     attr_reader :request
 
     def initialize(request:)

@@ -3,7 +3,7 @@
 require_relative 'low_event'
 
 module Low
-  class RenderEvent < LowEvent
+  class RenderEvent < Event
     attr_reader :render
 
     def initialize(action: :render, render: nil)
