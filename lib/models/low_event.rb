@@ -6,7 +6,7 @@ module Low
 
     attr_reader :action
 
-    def initialize(action: :handle_event)
+    def initialize(action: :handle)
       @action = action
     end
 

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+require 'protocol/http'
 require_relative 'low_event'
 
 module Low
   class ResponseEvent < Event
-    attr_reader :body
+    attr_reader :response
 
-    def initialize(body: nil)
-      @body = body
+    # TODO: Type: "response: Protocol::HTTP::Response"
+    def initialize(response: nil)
+      @response = response
     end
   end
 end
