@@ -3,7 +3,7 @@
 require 'low_type'
 require 'observers'
 
-require_relative 'models/request_event'
-require_relative 'models/response_event'
+require_relative 'events/request_event'
+require_relative 'events/response_event'
 
 LowEvent = Low::Event
