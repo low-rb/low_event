@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'low_type', '~> 1.0'
   spec.add_dependency 'observers'
+  spec.add_dependency 'protocol-http'
 end

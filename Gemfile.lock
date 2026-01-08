@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    low_event (0.0.1)
+    low_event (0.1.0)
       low_type (~> 1.0)
       observers
+      protocol-http
 
 GEM
   remote: https://rubygems.org/
@@ -22,6 +23,7 @@ GEM
       ast (~> 2.4.1)
       racc
     prism (1.6.0)
+    protocol-http (0.56.1)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
