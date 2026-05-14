@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'low_type'
 require 'observers'
 require_relative '../support/value_object'
 
@@ -21,6 +22,7 @@ module Low
     attr_reader :key, :action, :created_at
     attr_accessor :children
 
+    # The subclass will provide the key, usually "self.class".
     def initialize(key:, action: nil, children: [])
       @key = key
       @action = action
