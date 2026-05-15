@@ -2,6 +2,7 @@
 
 require 'low_type'
 require 'observers'
+require_relative 'definable'
 require_relative '../support/value_object'
 
 module Low
@@ -12,11 +13,13 @@ module Low
   # The result of the previous event is made available to the next event. [UNRELEASED]
   #
   # Integrations:
-  # - Observers for observer pattern via an event-centric API
+  # - Observers for observer pattern which we wrap in an event-centric API
   # - EventPool for a tree of events and their child events
   # - LowState for state machines to trigger multiple actions [UNLRELEASED]
   class Event
     include LowType
+    include Observers
+    include Events::Definable
     include Support::ValueObject
 
     attr_reader :key, :action, :created_at
@@ -32,14 +35,23 @@ module Low
 
     def trigger
       event_tree = branch
-      key = Observers[@key]
+      key = Observers::Keys[@key]
       key.trigger(event: self) { restore_level(event_tree:) }
     end
 
     def take
       event_tree = branch
-      key = Observers[@key]
+      key = Observers::Keys[@key]
       key.take(event: self) { restore_level(event_tree:) }
+    end
+
+    class << self
+      def trigger(**kwargs) = new(**kwargs).trigger
+      def take(**kwargs) = new(**kwargs).take
+
+      def inherited(child)
+        child.include LowType
+      end
     end
 
     private
@@ -51,20 +63,6 @@ module Low
 
     def restore_level(event_tree:)
       event_tree.current_event = self if event_tree.respond_to?(:current_event)
-    end
-
-    class << self
-      def trigger(**kwargs)
-        new(**kwargs).trigger
-      end
-
-      def take(**kwargs)
-        new(**kwargs).take
-      end
-
-      def inherited(child)
-        child.include LowType
-      end
     end
   end
 end

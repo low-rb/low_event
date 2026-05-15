@@ -18,7 +18,7 @@ module Low
 
       def trigger
         event_tree = branch
-        key = Observers[@key]
+        key = Observers::Keys[@key]
         key.trigger(event: self) { restore_level(event_tree:) }
       end
 
