@@ -16,7 +16,7 @@ module Low
 
       # Status is a complex type that can be represented by both "Status" generically and "Status[:code]" specifically.
       class << self
-        def trigger(status:, **kwargs)          
+        def trigger(status:, **kwargs)
           new(status:, **kwargs).trigger || new(status:, key: Status, **kwargs).trigger
         end
       end

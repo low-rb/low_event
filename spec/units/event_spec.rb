@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../fixtures/mock_event.rb'
-require_relative '../fixtures/mock_observer.rb'
+require_relative '../fixtures/mock_event'
+require_relative '../fixtures/mock_observer'
 
 # An interface that we test via an implementation.
 RSpec.describe Low::Event do
