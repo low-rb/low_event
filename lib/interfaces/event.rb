@@ -51,7 +51,9 @@ module Low
 
       def inherited(child)
         child.include LowType
+
         increase_count
+        add_event(child)
       end
 
       def count
@@ -60,6 +62,14 @@ module Low
 
       def increase_count
         @count = count + 1
+      end
+
+      def events
+        @events ||= []
+      end
+
+      def add_event(event)
+        events << event
       end
     end
 
