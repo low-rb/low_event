@@ -10,6 +10,8 @@ module Low
 
       # TODO: Type: "response: Protocol::HTTP::Response"
       def initialize(response: nil)
+        super(key: self.class, action: :respond)
+
         @response = response
       end
     end

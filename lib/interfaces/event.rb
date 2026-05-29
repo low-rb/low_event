@@ -45,6 +45,17 @@ module Low
       key.take(event: self) { restore_level(event_tree:) }
     end
 
+    def branch
+      event_tree = Providers['low.event.pool'].current_event_tree(event: self)
+      event_tree.branch(event: self)
+    end
+    
+    private
+
+    def restore_level(event_tree:)
+      event_tree.current_event = self if event_tree.respond_to?(:current_event)
+    end
+
     class << self
       def trigger(**kwargs) = new(**kwargs).trigger
       def take(**kwargs) = new(**kwargs).take
@@ -71,17 +82,6 @@ module Low
       def add_event(event)
         events << event
       end
-    end
-
-    private
-
-    def branch
-      event_tree = Providers['low.event.pool'].current_event_tree(event: self)
-      event_tree.branch(event: self)
-    end
-
-    def restore_level(event_tree:)
-      event_tree.current_event = self if event_tree.respond_to?(:current_event)
     end
   end
 end
