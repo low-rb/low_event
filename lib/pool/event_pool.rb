@@ -23,7 +23,13 @@ module Low
 
         return @pool[request_id] if @pool[request_id]
 
-        event_tree = @pool.add(request_id, EventTree.new(request_id:))
+        event_tree = @pool.add(request_id, EventTree.new(request_id:)) do |_evicted_request_id, evicted_tree|
+          # Without this, an evicted EventTree can never be garbage collected: EventTree#branch
+          # observes itself via Observers::Keys[self], and Keys never removes entries on its own,
+          # so every request's EventTree (and everything it references -- Request, Response,
+          # child events) would otherwise be retained for the life of the process.
+          Observers::Keys.keys.delete(evicted_tree)
+        end
         trigger action: :new_event_tree, event: event_tree
 
         event_tree

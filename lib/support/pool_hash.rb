@@ -12,8 +12,8 @@ module Low
       def add(key, value)
         # Prune the hash when a new item added.
         if size >= @max_size && !key?(key)
-          # TODO: Notify event pool that item was removed.
-          _old_key, _old_value = shift
+          evicted_key, evicted_value = shift
+          yield(evicted_key, evicted_value) if block_given?
         end
 
         self[key] = value
