@@ -8,7 +8,7 @@ module Low
       class << self
         def response(body:)
           headers = Protocol::HTTP::Headers.new(['content-type', 'text/html'])
-          body = Protocol::HTTP::Body::Buffered.wrap(body)
+          body = Protocol::HTTP::Body::Buffered.wrap(body.strip)
 
           Protocol::HTTP::Response.new('http/1.1', 200, headers, body)
         end
