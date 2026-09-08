@@ -22,14 +22,16 @@ module Low
     include Events::Definable
     include Support::ValueObject
 
-    attr_reader :key, :action, :created_at
+    attr_reader :key, :action, :actions, :created_at
     attr_accessor :children
 
-    # The subclass will provide the key, usually "self.class".
-    def initialize(key:, action: nil, children: [])
+    # Subclass provides a key such as "self.class".
+    def initialize(key:, action: nil, actions: [], children: [])
       @key = key
       @action = action
+      @actions = actions
       @children = children
+
       @created_at = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)
     end
 
@@ -62,7 +64,6 @@ module Low
 
       def inherited(child)
         child.include LowType
-
         increase_count
         add_event(child)
       end
