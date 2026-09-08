@@ -6,16 +6,16 @@ require_relative 'definable'
 require_relative '../support/value_object'
 
 module Low
-  # An event represents what is currently happening in your application.
+  # An event represents what is currently happening; the past, present and future.
   #
-  # Events are mutable in most cases (except for RenderEvent). They are action-driven, representing inputs and outputs
-  # that are currently happening in a linear pipeline-like flow. They are present-tense and one-to-many with one return value.
-  # The result of the previous event is made available to the next event. [UNRELEASED]
+  # They are action-driven, representing inputs and outputs in a linear pipeline-like flow,
+  # which end up as children of the event... which is why events are mutable (except for RenderEvent).
+  # They are one-to-many with a return value.
   #
   # Integrations:
   # - Observers for observer pattern which we wrap in an event-centric API
-  # - EventPool for a tree of events and their child events
-  # - LowState for state machines to trigger multiple actions [UNLRELEASED]
+  # - EventPool for a tree of events and their child events (defined in this gem)
+  # - LowState for state machines to trigger multiple ordered actions [UNLRELEASED]
   class Event
     include LowType
     include Observers
