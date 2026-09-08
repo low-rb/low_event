@@ -14,23 +14,23 @@ module Low
       BUFFER_SIZE = 100
 
       def initialize
-        @pool = Support::PoolHash.new(BUFFER_SIZE)
+        @event_trees = Support::PoolHash.new(BUFFER_SIZE)
         @request_counts = Support::PoolHash.new(BUFFER_SIZE)
       end
 
       def current_event_tree(event:)
         request_id = request_id(event:)
 
-        return @pool[request_id] if @pool[request_id]
+        return @event_trees[request_id] if @event_trees[request_id]
 
-        event_tree = @pool.add(request_id, EventTree.new(request_id:))
+        event_tree = @event_trees.add(request_id, EventTree.new(request_id:))
         trigger action: :new_event_tree, event: event_tree
 
         event_tree
       end
 
       def event_trees
-        @pool
+        @event_trees
       end
 
       private
